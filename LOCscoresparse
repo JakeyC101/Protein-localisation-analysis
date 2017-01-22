@@ -7,7 +7,7 @@ def LOCscoresparse(x,y):                                                        
     reader = csv.reader(LOCscores)                                               ## Each row interpreted as a list with members separated by commas
     firstline=True
     for row in reader:
-        if firstline:##Generates identifierlist from headings in first
+        if firstline:                                                            ##Generates identifierlist from headings in first row
             preidentifierlist = row[2:]                                          ##Ignore the first two columns 'ORF' and 'Gene Name'
             identifierlist = [x.replace('/', '') for x in preidentifierlist]     ##Need to remove '/' from identifierlist due to confusion with file name
             locdict = {k: [] for k in identifierlist}                            ##Generates dictionary with empty list for values

@@ -1,0 +1,9 @@
+This section is where all the code related to extracting data for my project will be stored.
+
+Initially I am focused on extracting the yeast localisation data from http://cyclops.ccbr.utoronto.ca/, generating lists of yeast
+identifiers stored in text files based on their localisation. Taking the independent lists from three WT strains, I will then generate
+a list of yeast proteins present in each localisation category in all three of the strains.
+
+Once I have generated definitive lists of yeast proteins sorted by localisation, I will generate FASTA files containing each identifier
+and its full protein sequence using the yeastmine API. Next I will shorten these FASTA files to a size acceptable to MEME suite (e.g. first
+30 amino acids) and generate new FASTA files for these shortened sequences.

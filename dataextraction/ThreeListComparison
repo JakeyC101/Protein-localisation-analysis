@@ -1,14 +1,14 @@
-# This function compares the members of three lists in the form of .txt files and generates another list consisting only of the shared members of all lists
+# This function compares the members of three lists and generates another list consisting only of the shared members of all lists
 
 def ListCompare():
-    listdict = {}
+    listdict = {}                                                               #Generates empty dictionary which will hold three lists
     for i in (1,2,3):
-        openfile = open(input('File location: '))
-        genelist = openfile.readlines()
-        genelistformatted = [x.replace("\n", "") for x in genelist]
-        listdict[i] = genelistformatted
-    sharedlist = set(listdict[1]).intersection(listdict[2], listdict[3])
-    outputfile = open(input('Shared list destination: '), 'w')
-    outputfile.write('\n'.join(list(sharedlist)))
+        openfile = open(input('File location: '))                               #Opens file, this will run thrice, allowing the input of three different files
+        genelist = openfile.readlines()                                         #File is read as a list
+        genelistformatted = [x.replace("\n", "") for x in genelist]             #This removes all the \n within the list
+        listdict[i] = genelistformatted                                         #Generates dictionary members with keys 1,2 and 3, each with a value of one of the different lists
+    sharedset = set(listdict[1]).intersection(listdict[2], listdict[3])         #Generates a set composed of all of the members shared between all three lists
+    outputfile = open(input('Shared list destination: '), 'w')                  #opens a .txt file in the location of choice
+    outputfile.write('\n'.join(list(sharedset)))                                #Writes the components of the set as a list in the .txt file
 
 ListCompare()

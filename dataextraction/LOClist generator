@@ -1,24 +1,26 @@
+#This code takes csv files downloaded from the cyclops database and generates a text file for each localisation category containing a list of yeast identifiers in the csv file that had a score above 0 in that localisation category
+
 import csv
 import sys
 import os.path
 
-def LOCscoresparse(x,y):                                                        ##function takes two inputs: destination of csv file, folder where output text files should be placed
+def LOCscoresparse(x,y):                                                        #function takes two inputs: destination of csv file, folder where output text files should be placed
     LOCscores = open(x)
-    reader = csv.reader(LOCscores)                                               ## Each row interpreted as a list with members separated by commas
+    reader = csv.reader(LOCscores)                                              # Each row interpreted as a list with members separated by commas
     firstline=True
     for row in reader:
-        if firstline:                                                            ##Generates identifierlist from headings in first row
-            preidentifierlist = row[2:]                                          ##Ignore the first two columns 'ORF' and 'Gene Name'
-            identifierlist = [x.replace('/', '') for x in preidentifierlist]     ##Need to remove '/' from identifierlist due to confusion with file name
-            locdict = {k: [] for k in identifierlist}                            ##Generates dictionary with empty list for values
-            firstline=False                                                      ##Prevents score analysis done on text which results in an error
+        if firstline:                                                            #Generates identifierlist from headings in first row
+            preidentifierlist = row[2:]                                          #Ignore the first two columns 'ORF' and 'Gene Name'
+            identifierlist = [x.replace('/', '') for x in preidentifierlist]     #Need to remove '/' from identifierlist due to confusion with file name
+            locdict = {k: [] for k in identifierlist}                            #Generates dictionary with empty list for values
+            firstline=False                                                      #Prevents score analysis done on text which results in an error
             continue
         colnum = 0
         for score in row[2:]:
             if float(score)>0:
-                locdict[identifierlist[colnum]].append(row[0])                   ##appends the name of yeast ORF to list in dictionary
-            colnum+=1                                                            ##colnum required to know which member of identifier list. Dictionaries are not stored in any order so have to use the list
+                locdict[identifierlist[colnum]].append(row[0])                   #appends the name of yeast ORF to list in dictionary
+            colnum+=1                                                            #colnum required to know which member of identifier list. Dictionaries are not stored in any order so have to use the list
     for x in locdict:
         file = open(y + "%s.txt" %x, 'w')
-        file.write('\n'.join(locdict[x]))                                        ##Writes each yeast ORF to text file on separate line
+        file.write('\n'.join(locdict[x]))                                        #Writes each yeast ORF to text file on separate line
     LOCscores.close()

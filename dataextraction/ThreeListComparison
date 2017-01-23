@@ -1,8 +1,7 @@
-# This function compares the members of three lists and generates another list consisting only of the shared members of all lists
+# This function compares the members of three lists in the form of .txt files and generates another list consisting only of the shared members of all lists
 
 def ListCompare():
     listdict = {}
-    list1, list2, list3 = ([], [], [])
     for i in (1,2,3):
         openfile = open(input('File location: '))
         genelist = openfile.readlines()

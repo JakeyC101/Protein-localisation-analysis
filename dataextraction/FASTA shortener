@@ -1,3 +1,6 @@
+#This code takes FASTA files with the titles in 'identifierlist', shortens them to thirty amino acids 
+#and generates a new fasta file to hold the shortened sequence
+
 from Bio import SeqIO
 
 def FASTAparse(x,y):

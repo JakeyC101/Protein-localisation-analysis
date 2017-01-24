@@ -16,6 +16,6 @@ for identifier in identifierlist:
     query.add_constraint("Protein", "IN", "%s" %identifier, code = "A")
     # Uncomment and edit the code below to specify your own custom logic:
     query.set_logic("A")
-    fastafile = open('File location/%sfasta' %identifier + '.txt', 'w' )
+    fastafile = open('File location/%sfasta' %identifier + '.fa', 'w' )
     for row in query.rows():
         fastafile.write('>' + row["primaryIdentifier"] + row["sequence.residues"])

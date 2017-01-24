@@ -1,0 +1,21 @@
+#This code takes lists with the titles within 'identifierlist' and generates fasta files for each one containing every yeast identifier and its protein sequence
+
+# The following two lines will be needed in every python script:
+from intermine.webservice import Service
+yeastmine = Service("http://yeastmine.yeastgenome.org/yeastmine/service", token = "")
+
+identifierlist = ['Bud', 'Budneck', 'Budsite', 'Cell Periphery', 'Cortical Patches', 'Cytoplasm', 'ER', 'Endosome',
+                  'Golgi', 'Mitochondria', 'Nuclear Periphery', 'Nucleolus', 'Nucleus', 'Peroxisome', 'Spindle Pole',
+                  'VacuoleVacuolar Membrane']
+for identifier in identifierlist:
+    # Get a new query on the class (table) you will be querying:
+    query = yeastmine.new_query("Protein")
+    # The view specifies the output columns
+    query.add_view("primaryIdentifier", "sequence.residues")
+    # You can edit the constraint values below
+    query.add_constraint("Protein", "IN", "%s" %identifier, code = "A")
+    # Uncomment and edit the code below to specify your own custom logic:
+    query.set_logic("A")
+    fastafile = open('File location/%sfasta' %identifier + '.txt', 'w' )
+    for row in query.rows():
+        fastafile.write('>' + row["primaryIdentifier"] + row["sequence.residues"])

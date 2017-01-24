@@ -1,0 +1,13 @@
+#This code takes txt files named final(identifier).txt and generates a yeastmine list containing all proteins found by the identifiers
+
+from intermine.webservice import Service
+yeastmine = Service("http://yeastmine.yeastgenome.org/yeastmine/service", token = "")
+
+identifierlist = ['Bud', 'Budneck', 'Budsite', 'Cell Periphery', 'Cortical Patches', 'Cytoplasm', 'ER', 'Endosome',
+                  'Golgi', 'Mitochondria', 'Nuclear Periphery', 'Nucleolus', 'Nucleus', 'Peroxisome', 'Spindle Pole',
+                  'VacuoleVacuolar Membrane']
+for identifier in identifierlist:
+    openfile = open('File location/final%s' %identifier)
+    genelist = openfile.readlines()
+    genelistformatted = [x.replace("\n", "") for x in genelist]
+    new_list = yeastmine.create_list(genelistformatted, "Protein", name = '%s' %identifier)

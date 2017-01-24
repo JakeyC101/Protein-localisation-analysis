@@ -18,4 +18,4 @@ for identifier in identifierlist:
     query.set_logic("A")
     fastafile = open('File location/%sfasta' %identifier + '.fa', 'w' )
     for row in query.rows():
-        fastafile.write('>' + row["primaryIdentifier"] + row["sequence.residues"])
+        fastafile.write('>'  + row["primaryIdentifier"] + '\n' + row["sequence.residues"] + '\n')

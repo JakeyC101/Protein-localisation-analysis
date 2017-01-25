@@ -1,12 +1,13 @@
 # Generates a random amino acid sequence of length 'sequencelength' with 'motif' inserted into a random position within the sequence
+# This code uses a KDEL motif inserted into a peptide sequence of total length 30 as an example.
 
 import random
 
-def fastagenerator(motif, sequencelength):
+def sequencegenerator(motif, sequencelength):
     residueslist = "ARNDCQEGHILKMFPSTWYV"
     randomsequence = ''.join([random.choice(residueslist) for x in range(sequencelength-len(motif))])      # Joins together a random letter from residueslist 50 times with replacement to generate a random amino acid sequence
     motifposition = random.randrange(sequencelength)                                                       # Generates a random position within the sequence for the motif to insert into
     newsequence = randomsequence[:motifposition] + motif + randomsequence[motifposition:]                  # Generates a list of every sequence up to the motif position + the motif + everything after motif position
-    print (newsequence)
+    return (newsequence)
 
-fastagenerator('KDEL', 30)
+sequencegenerator('KDEL', 30)

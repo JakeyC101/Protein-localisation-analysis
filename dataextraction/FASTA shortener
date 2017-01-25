@@ -2,12 +2,13 @@
 
 from Bio import SeqIO
 
-def FASTAparse(x,y):
+def FASTAparse(inputdestination,outputdestination):
     identifierlist = ['Bud', 'Budneck', 'Budsite', 'Cell Periphery', 'Cortical Patches', 'Cytoplasm', 'ER', 'Endosome', 'Golgi', 'Mitochondria', 'Nuclear Periphery', 'Nucleolus', 'Nucleus', 'Peroxisome', 'Spindle Pole', 'VacuoleVacuolar Membrane']
     for identifier in identifierlist:
-        fastafile = SeqIO.parse(x + "%s.fa" %identifier, "fasta")
-        shortened = []
-        for i in fastafile:
-            i.seq = i.seq[0:30]
-            shortened.append(i)
-        SeqIO.write(shortened, y + "firstthirty%s.fa" %identifier, "fasta" )
+        fastafile = SeqIO.parse(inputdestination + "%sfasta.fa" %identifier, "fasta") # Use Biopython to parse fasta file which reads through each identifier and then sequence 
+        shortened = []             # Generate empty list in which to store shortened sequences
+        for i in fastafile:        # Iterates through the members of fastafile                                                                         
+            i.seq = i.seq[:30]     # Changes the sequence of each member to the first thirty amino acids in the sequence
+            shortened.append(i)    # Adds the new sequence into shortened
+        SeqIO.write(shortened, outputdestination + "lastfifty%s.fa" %identifier, "fasta" )
+

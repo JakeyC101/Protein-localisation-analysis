@@ -15,13 +15,14 @@ sequencegenerator('KDEL', 30)
 # The code below uses sequencegenerator() to produce a FASTA file containing a set number of sequences, with an optional number of those sequences containing a randomly placed motif of choice
 
 def fastagenerator(motif, sequencelength, sequenceswithmotif, sequenceswithoutmotif, outputlocation):
-    fastalist = []                                                                                          #Create empty list in which to store sequences
-    for x in range(sequenceswithmotif):
-        sequence = sequencegenerator(motif, sequencelength)
-        fastalist.append(sequence)
-    for y in range(sequenceswithoutmotif):
-        sequence = sequencegenerator('', sequencelength)
-        fastalist.append(sequence)
-    fastafile = open(outputlocation + '.fa', 'w' )
-    for i in fastalist:
-        fastafile.write('>identifier' + str(fastalist.index(i)) + '\n' + i + '\n')                          # Generates FASTA file containing numbered identifiers and the list of sequences in fastalist
+    fastalist = []                                                                                          # Generates empty list to store sequences in
+    for x in range(sequenceswithmotif):                                                                     # Counts through to the number of sequenceswithmotif
+        sequence = sequencegenerator(motif, sequencelength)                                                 # Runs sequencegenerator function that many times
+        fastalist.append(sequence)                                                                          # Adds each sequence to the list
+    for y in range(sequenceswithoutmotif):                                                                  # Counts to the number of sequencewithoutmotif
+        sequence = sequencegenerator('', sequencelength)                                                    # Runs sequence generator function, this time with no motif
+        fastalist.append(sequence)                                                                          # Adds each sequence to fastalist
+    fastafile = open(outputlocation + '.fa', 'w' )                                                          # Opens output file
+    for i in fastalist:                                                                                     # Iterates through each member of the FASTA list
+        fastafile.write('>identifier' + str(fastalist.index(i)) + '\n' + i + '\n')                          # Generates FASTA file containing arbitrary identifiers and the list of sequences in fastalist
+                                                                                                            # str(fastalist.index(i)) gives the position of the member within fasta list e.g. position '6' and outputs the position as a string so that it can be written into the file
